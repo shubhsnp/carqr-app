@@ -1,0 +1,19 @@
+name: carqr_clean
+description: Car QR Clean Project
+publish_to: "none"
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.17.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  provider: ^6.0.5
+  http: ^1.1.0
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/images/
