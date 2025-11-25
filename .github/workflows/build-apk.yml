@@ -30,20 +30,16 @@ jobs:
     - name: Get dependencies
       run: flutter pub get
 
-    - name: Build APK (Debug - for testing)
-      run: flutter build apk --debug
+    - name: Clean build cache
+      run: flutter clean
 
     - name: Build APK (Release)
-      run: flutter build apk --release
-
-    - name: Upload Debug APK
-      uses: actions/upload-artifact@v4
-      with:
-        name: app-debug
-        path: build/app/outputs/flutter-apk/app-debug.apk
+      run: |
+        flutter build apk --release --no-shrink
+      continue-on-error: false
 
     - name: Upload Release APK
       uses: actions/upload-artifact@v4
       with:
-        name: app-release
+        name: CarQR-v1.0.0
         path: build/app/outputs/flutter-apk/app-release.apk

@@ -21,32 +21,31 @@ android {
 
     defaultConfig {
         applicationId = "com.carqr.parking"
-        minSdk = 21  // Android 5.0+
+        minSdk = 21
         targetSdk = flutter.targetSdkVersion
         versionCode = 1
         versionName = "1.0.0"
 
-        // Enable multidex for apps with >64K methods
         multiDexEnabled = true
     }
 
     buildTypes {
-        release {
-            // For production, you need to generate a keystore:
-            // keytool -genkey -v -keystore upload-keystore.jks -keyalg RSA -keysize 2048 -validity 10000 -alias upload
-            // Then create android/key.properties with:
-            // storePassword=<password>
-            // keyPassword=<password>
-            // keyAlias=upload
-            // storeFile=<path-to-keystore>
 
-            // Using debug keys for testing APK
+        release {
+
+            // Use debug keystore temporarily
             signingConfig = signingConfigs.getByName("debug")
 
-            // Shrink and optimize release build
-            isMinifyEnabled = true
-            isShrinkResources = true
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            // 🔥 Fix R8 crash:
+            // Turn OFF shrinking and minification
+            isMinifyEnabled = false
+            isShrinkResources = false
+
+            // Include proguard rules (still required even if shrink disabled)
+            proguardFiles(
+                getDefaultProguardFile("proguard-android.txt"),
+                "proguard-rules.pro"
+            )
         }
 
         debug {
@@ -54,10 +53,18 @@ android {
         }
     }
 
-    // Enable view binding
     buildFeatures {
         viewBinding = true
     }
+}
+
+/**
+ * Add Play Core library so SplitInstallManager and related classes exist.
+ * Without this, R8 will crash even if minify is OFF.
+ */
+dependencies {
+    implementation("com.google.android.play:core:1.10.3")
+    implementation("com.google.android.play:core-common:2.0.3")
 }
 
 flutter {
