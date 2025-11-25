@@ -15,5 +15,6 @@ dependencies:
 flutter:
   uses-material-design: true
 
-  assets:
-    - assets/images/
+  # Uncomment if you add images to assets/images/ folder
+  # assets:
+  #   - assets/images/
