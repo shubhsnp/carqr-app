@@ -34,8 +34,7 @@ jobs:
       run: flutter clean
 
     - name: Build APK (Release)
-      run: |
-        flutter build apk --release --no-shrink
+      run: flutter build apk --release
       continue-on-error: false
 
     - name: Upload Release APK

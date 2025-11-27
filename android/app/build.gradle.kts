@@ -30,22 +30,13 @@ android {
     }
 
     buildTypes {
-
         release {
-
             // Use debug keystore temporarily
             signingConfig = signingConfigs.getByName("debug")
 
-            // 🔥 Fix R8 crash:
-            // Turn OFF shrinking and minification
+            // COMPLETELY disable R8 to avoid Play Core issues
             isMinifyEnabled = false
             isShrinkResources = false
-
-            // Include proguard rules (still required even if shrink disabled)
-            proguardFiles(
-                getDefaultProguardFile("proguard-android.txt"),
-                "proguard-rules.pro"
-            )
         }
 
         debug {
