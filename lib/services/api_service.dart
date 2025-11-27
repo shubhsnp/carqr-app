@@ -13,9 +13,8 @@ class ApiService {
       case 'staging':
         return 'https://staging-api.carqr.app/api/v1'; // Replace with staging URL
       default:
-        // Development - use local IP for Android emulator or localhost for web
-        return 'http://10.0.2.2:3000/api/v1'; // Android emulator
-        // return 'http://localhost:3000/api/v1'; // Web browser
+        // Development - using local network IP for physical device
+        return 'http://192.168.1.2:3000/api/v1'; // Your computer's IP
     }
   }
 
