@@ -1,5 +1,6 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 class ApiService {
   // Environment-based API URL configuration
@@ -13,8 +14,14 @@ class ApiService {
       case 'staging':
         return 'https://staging-api.carqr.app/api/v1'; // Replace with staging URL
       default:
-        // Development - using local network IP for physical device
-        return 'http://192.168.1.2:3000/api/v1'; // Your computer's IP
+        // Development - detect platform
+        if (kIsWeb) {
+          // Web uses localhost
+          return 'http://localhost:3000/api/v1';
+        } else {
+          // Android phone uses computer's local IP
+          return 'http://192.168.1.2:3000/api/v1';
+        }
     }
   }
 
